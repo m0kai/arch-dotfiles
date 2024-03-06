@@ -1,0 +1,22 @@
+{
+    "layer": "top",
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock", "backlight/slider"],
+    "modules-right": ["pulseaudio/slider", "network", "battery"],
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "format-alt": "{:%a, %d. %b  %H:%M}"
+    },
+    "backlight/slider": {
+    	"min": 0,
+    	"max": 100,
+    	"orientation": "horizontal"
+    },
+    "network": {
+    	"format": "{icon} {ipaddr}",
+	"format-icons": [""]
+    }
+}
