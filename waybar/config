@@ -1,8 +1,8 @@
 {
     "layer": "top",
     "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["clock", "backlight/slider"],
-    "modules-right": ["pulseaudio/slider", "network", "battery"],
+    "modules-center": ["clock"],
+    "modules-right": ["network", "battery"],
     "battery": {
         "format": "{capacity}% {icon}",
         "format-icons": ["", "", "", "", ""]
