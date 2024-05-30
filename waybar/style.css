@@ -150,7 +150,13 @@ label:focus {
 }
 
 #backlight {
-    background-color: #90b1b1;
+    border-color: #90b1b1;
+    background-color: rgba(144, 177, 177, 0.5);
+    border-radius: 25px;
+    margin-right: 6px;
+    padding-left: 20px;
+    border-style: solid;
+    border-width: 2px;
 }
 #backlight-slider slider {
     min-height: 10px;
@@ -183,14 +189,24 @@ label:focus {
     margin-right: 6px;
 }
 
+#pulseaudio {
+    background-color: rgba(247, 120, 189, 0.5);
+    border-color: #f778bd;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 25px;
+    margin-left: 4px;
+    margin-right: 6px;
+}
+
 #network.disconnected {
     background-color: #f53c3c;
 }
-
+/*
 #pulseaudio {
     background-color: #f1c40f;
     color: #000000;
-}
+}*/
 
 #pulseaudio.muted {
     background-color: #90b1b1;
