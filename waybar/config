@@ -2,7 +2,7 @@
     "layer": "top",
     "modules-left": ["hyprland/workspaces", "wlr/taskbar"],
     "modules-center": ["clock"],
-    "modules-right": ["backlight", "pulseaudio", "network", "battery"],
+    "modules-right": ["disk", "backlight", "pulseaudio", "network", "battery"],
     "battery": {
         "format": "{capacity}% {icon}",
         "format-icons": ["", "", "", "", ""]
@@ -81,5 +81,11 @@
             "Firefox Web Browser": "Firefox",
             "Foot Server": "Terminal"
         }
+    },
+    "disk": {
+        "interval": 30,
+        "format": "{percentage_free}% free",
+        "unit": "GB",
+        "on-click": "thunar"
     }
 }

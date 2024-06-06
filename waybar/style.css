@@ -146,7 +146,13 @@ label:focus {
 }
 
 #disk {
-    background-color: #964B00;
+    border-color: #E1C0B6;
+    background-color: rgba(225, 192, 182, 0.5);
+    border-radius: 25px;
+    margin-right: 6px;
+    padding-left: 20px;
+    border-style: solid;
+    border-width: 2px;
 }
 
 #backlight {
