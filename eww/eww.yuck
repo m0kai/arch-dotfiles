@@ -1,0 +1,24 @@
+;; time variable
+(defpoll time :interval "1s"
+    `date +'{"hour":"%H","min":"%M"}'`)
+
+;; network connectivity variable
+(defpoll net :interval "100s"
+    :initial `N/a`
+    `nmcli -terse -fields SIGNAL,ACTIVE device wifi \
+  | awk --field-separator ':' '{if($2=="yes")print$1}'`)
+
+(defwindow top-bar
+            :monitor 0
+            :geometry (geometry :x "0%"
+                                :y "1%"
+                                :width "98%"
+                                :height "3%"
+                                :anchor "top center")
+            :stacking "fg"
+            :exclusive true
+(bar_layout))
+
+(defwidget bar_layout []
+    (box :class "full-bar"
+    (label :text "${time.hour}:${time.min}")))
