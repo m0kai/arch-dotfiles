@@ -1,3 +1,4 @@
+; ---------- Variables ----------
 ;; time variable
 (defpoll time :interval "1s"
     `date +'{"hour":"%H","min":"%M"}'`)
@@ -8,6 +9,13 @@
     `nmcli -terse -fields SIGNAL,ACTIVE device wifi \
   | awk --field-separator ':' '{if($2=="yes")print$1}'`)
 
+; Battery levels variable, value is pulled by script
+(defpoll battery :interval "15s" "$HOME/.config/eww/scripts/battery --bat")
+
+; How much memory is in use variable 
+(defpoll memory :interval "15s" "scripts/memory")
+
+; --------- Windows that represents the container of the full bar 
 (defwindow top-bar
             :monitor 0
             :geometry (geometry :x "0%"
@@ -19,6 +27,73 @@
             :exclusive true
 (bar_layout))
 
+; ---------- the actual widget that holds the sub-widgets that make up the full bar ----------
 (defwidget bar_layout []
     (box :class "full-bar"
-    (label :text "${time.hour}:${time.min}")))
+    (workspaces)
+    (label :text "${time.hour}:${time.min}")
+    ;(label :text "test")
+    (right)
+    )
+)
+
+; ---------- Widgets on the right third of the bar ----------
+;; The battery widget
+(defwidget battery []
+  (box :class "battery_module" :vexpand "false" :hexpand "false"
+    (circular-progress :value battery
+      :thickness 4
+      (button
+        :class "baticon"
+        :limit-width 2
+        :tooltip "battery is on ${battery}%"
+        :show_truncated false
+        ;;:onclick "$HOME/.config/eww/scripts/pop system"
+        :wrap false
+        ;""
+        ))))
+
+(defwidget memory []
+  (box :class "mem_module" :vexpand "false" :hexpand: "false"
+  (circular-progress :value memory
+    :thickness 4
+    (button
+      :class "memicon"
+      :limit-width 2
+      :tooltip "using ${memory}% RAM"
+      ;:onclick "$HOME/.config/eww/scripts/pop system"
+      :show_truncated false
+      :wrap false
+     ))))
+
+;; The widget that holds all the stuff in the right third of the top bar
+(defwidget right []
+  (box :orientation "h"
+    :halign "end"
+    :class "right_modules"
+    (memory)
+    ;(label :text "${battery}%")
+    (battery)))
+
+
+;; --- workspaces widget ---
+;; listeners
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+
+;; actual widget
+(defwidget workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+    (box :space-evenly false
+         :class "workspaces"
+      (label :text "${workspaces}${current_workspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}" )
+            )
+          )
+        )
+      )
+    )
+  )

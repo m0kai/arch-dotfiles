@@ -1,5 +1,7 @@
+// Unsets everything so that the only things rendered and visible are the things you style in this file.
 * { all: unset; }
 
+// sytles the entire bar
 .full-bar {
     // orig values I was playing with
     color: rgba(#949494, 1);
@@ -9,4 +11,58 @@
     border-style: solid;
     border-color: rgba(129, 157, 189, 1);
     border-width: 2px;
+}
+
+// workspace styling, copy+pasted from hyprland docs
+// will eventually customize myself. 
+.workspace-entry {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.workspaces {
+  padding-left: 10px;
+}
+
+// this is for the battery button
+// You can't see it, but it styles the inner
+// ball inside the ring. 
+.baticon {
+    margin: 10px;
+}
+
+// Styles the battery module, so the ring that shows the 
+// status of the battery, I believe it falls back on the background color
+// of the overall bar. 
+.battery_module {
+  color: #9FB5D4;
+  //color: #0f0f17;
+  border-radius: 16px;
+  margin: 3px 10px 3px 5px;
+}
+
+.memicon {
+  margin: 10px;
+}
+
+.mem_module {
+  color: #9FB5D4;
+  //color: #0f0f17;
+  border-radius: 16px;
+  margin: 3px 5px 3px 10px;
+}
+
+// styles the background of the tooltip that shows
+// the percentage of the battery level.
+tooltip.background {
+    background-color: rgba(#0f0f17, .80);
+    font-size: 12;
+    border-radius: 10px;
+    color: #949494;
+}
+
+// styles the label "box", the margins 
+// around the text. 
+tooltip label {
+    margin: 6px;
 }
