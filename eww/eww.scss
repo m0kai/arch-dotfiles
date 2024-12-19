@@ -5,7 +5,6 @@
 .full-bar {
     // orig values I was playing with
     color: rgba(#949494, 1);
-    //background: rgba(#949444, 1);
     background-color: rgba(#0f0f17, .80);
     border-radius: 16px;
     border-style: solid;
@@ -36,7 +35,6 @@
 // of the overall bar. 
 .battery_module {
   color: #9FB5D4;
-  //color: #0f0f17;
   border-radius: 16px;
   margin: 3px 10px 3px 5px;
 }
@@ -47,10 +45,30 @@
 
 .mem_module {
   color: #9FB5D4;
-  //color: #0f0f17;
   border-radius: 16px;
   margin: 3px 5px 3px 10px;
 }
+
+.volume_icon {
+  font-size: 22;
+  color: #a1bdce;
+  margin: 0px 10px 0px 10px;
+}
+
+.volbar trough highlight {
+  background-image: linear-gradient(to right, #afcee0 30%, #a1bdce 50%, #77a5bf 100% *50);
+  border-radius: 10px;
+}
+
+scale trough {
+  all: unset;
+  box-shadow: 0 2px 3px 2px #06060b;
+  border-radius: 16px;
+  min-height: 10px;
+  min-width: 70px;
+  margin: 0px 10px 0px 0px;
+}
+
 
 // styles the background of the tooltip that shows
 // the percentage of the battery level.
