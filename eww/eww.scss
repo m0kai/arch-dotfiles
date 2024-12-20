@@ -12,6 +12,21 @@
     border-width: 2px;
 }
 
+.separ {
+    color: #9FB5D4;
+    //font-weight: bold;
+    font-size: 12px;
+    margin: 0px 6px 0px 6px;
+}
+
+.start_icon {
+  color: #9FB5D4;
+  font-size: 20px;
+  margin: 3px 20px 3px 10px;
+}
+
+
+
 // workspace styling, copy+pasted from hyprland docs
 // will eventually customize myself. 
 .workspace-entry {
@@ -49,6 +64,19 @@
   margin: 3px 5px 3px 10px;
 }
 
+.module-wif {
+  font-size: 22;
+  color: #a1bdce;
+  border-radius: 100%;
+  //margin: 0px 0px 0px 0px;
+}
+
+.module_essid {
+  font-size: 10;
+  color: #a1bdce;
+  //margin: 0px 0px 0px 0px;
+}
+
 .volume_icon {
   font-size: 22;
   color: #a1bdce;
@@ -57,6 +85,17 @@
 
 .volbar trough highlight {
   background-image: linear-gradient(to right, #afcee0 30%, #a1bdce 50%, #77a5bf 100% *50);
+  border-radius: 10px;
+}
+
+.bright_icon {
+  font-size: 22;
+  color: #E4C9AF;
+  margin: 0px 10px 0px 10px;
+}
+
+.brightbar trough highlight {
+  background-image: linear-gradient(to right, #e4c9af 30%, #f2cdcd 50%, #e0b089 100% *50);
   border-radius: 10px;
 }
 

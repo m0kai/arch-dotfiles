@@ -15,10 +15,22 @@
 ; How much memory is in use variable 
 (defpoll memory :interval "15s" "scripts/memory")
 
+
 ; Volumne variable
 (defpoll volume_percent :interval "3s" "amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
 (defvar vol_reveal false) ; controls the hidable menu for the volumne
 
+; brightness variable
+(defpoll brightness_percent :interval "5s" "brightnessctl -m -d amdgpu_bl2 | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
+(defvar br_reveal false)
+
+; wifi Variables
+(defvar wifi_rev false) ; controls slider
+(defpoll COL_WLAN :interval "1m" "$HOME/.config/eww/scripts/wifi --COL") ; Get status of Wifi, connected or disconnected
+(defpoll ESSID_WLAN :interval "1m" "$HOME/.config/eww/scripts/wifi --ESSID") ; Get Wifi network name
+(defpoll WLAN_ICON :interval "1m" "$HOME/.config/eww/scripts/wifi --ICON") ; Get icon that corresponds with status of network
+
+; execute eww variable
 (defvar eww "/usr/bin/eww -c $HOME/.config/eww")
 
 ; --------- Windows that represents the container of the full bar 
@@ -26,7 +38,7 @@
             :monitor 0
             :geometry (geometry :x "0%"
                                 :y "1%"
-                                :width "98%"
+                                :width "99.3%"
                                 :height "3%"
                                 :anchor "top center")
             :stacking "fg"
@@ -41,6 +53,29 @@
     ;(label :text "test")
     (right)
     )
+)
+
+; separator 
+(defwidget sep []
+  (box 
+    :class "module-2" 
+    :vexpand "false"
+    :hexpand "false"
+    (label
+      :class "separ"
+      :text ">")
+  )
+)
+
+(defwidget start []
+  (box
+    :vexpand "false"
+    :hexpand "false"
+    (label 
+      :class "start_icon"
+      :text ""
+    )
+  )
 )
 
 ; ---------- Widgets on the right third of the bar ----------
@@ -67,7 +102,7 @@
       :class "memicon"
       :limit-width 2
       :tooltip "using ${memory}% RAM"
-      ;:onclick "$HOME/.config/eww/scripts/pop system"
+      ;:onclick "$HOME/.config/eww /scripts/pop system"
       :show_truncated false
       :wrap false
      ))))
@@ -95,17 +130,82 @@
     )
   )
 
+(defwidget bright []
+  (eventbox 
+    :onhover "${eww} update br_reveal=true" 
+    :onhoverlost "${eww} update br_reveal=false"
+    (box 
+      :class "module-2" 
+      :space-evenly "false"
+      :orientation "h"
+      :spacing "3"
+      (label 
+        :text ""
+        :class "bright_icon" 
+        :tooltip "brightness")
+      (revealer
+        :transition "slideleft"
+        :reveal br_reveal
+        :duration "350ms"
+        (scale 
+          :class "brightbar"
+          :value brightness_percent
+          :orientation "h"
+          :tooltip "${brightness_percent}%"
+          :max 100
+          :min 0
+          :onchange "brightnessctl -d amdgpu_bl2 s {}%")
+        )
+      )
+    )
+  )
+
+(defwidget wifi []
+  (eventbox
+    :onhover "${eww} update wifi_rev=true"
+    :onhoverlost "${eww} update wifi_rev=false"
+    (box 
+      :vexpand "false" 
+      :hexpand "false"
+      :space-evenly: "false"
+      (button
+        :class "module-wif" 
+        ;:onclick: "networkmanager_dmenu"
+        :wrap "false" 
+        :limit-width 12
+        :style "color: ${COL_WLAN};" WLAN_ICON)
+      (revealer
+        :transition "slideright"
+        :reveal wifi_rev
+        :duration "350ms"
+        (label 
+          :class "module_essid"
+          :text ESSID_WLAN
+          :orientation "h"
+        )
+      )
+    )
+  )
+)
+
 ;; The widget that holds all the stuff in the right third of the top bar
 (defwidget right []
   (box :orientation "h"
     :halign "end"
     :class "right_modules"
     :space-evenly false
-    ;(label :text "${vol_reveal}")
+    (wifi)
+    (sep)
+    (bright)
     (volume)
+    (sep)
     (memory)
     ;(label :text "${battery}%")
-    (battery)))
+    (battery)
+    (sep)
+    (start)
+  )
+)
 
 
 ;; --- workspaces widget ---
