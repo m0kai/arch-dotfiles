@@ -1,7 +1,7 @@
 #Author : Heapbytes <Gourav> (https://github.com/heapbytes)
 
 PROMPT='
-┌─[%F{blue}%n  %~%f] [%F{green} $(get_ip_address)%f] [%F{red}$(git_current_branch)%f]
+┌─[%F{blue}%n  %~%f] [%F{green} $(get_ip_address)%f] [%F{red}$(git_current_branch)%f]
 └─➜ '
 
 RPROMPT='[%F{red}%?%f]'
