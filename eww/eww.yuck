@@ -1,4 +1,9 @@
 ; ---------- Variables ----------
+; Current Focused Workspace variable
+; The workspace I'm curently looking at at any given time 
+(defpoll focused_workspace :interval "350ms" "hyprctl monitors -j | jq '.[] | select(.focused) | .activeWorkspace.id'")
+(defpoll act_workspaces :interval "350ms" "hyprctl workspaces -j | jq 'map({key: .id | tostring, value: .windows})'")
+
 ;; time variable
 (defpoll time :interval "1s"
     `date +'{"hour":"%H","min":"%M"}'`)
@@ -30,6 +35,9 @@
 (defpoll ESSID_WLAN :interval "1m" "$HOME/.config/eww/scripts/wifi --ESSID") ; Get Wifi network name
 (defpoll WLAN_ICON :interval "1m" "$HOME/.config/eww/scripts/wifi --ICON") ; Get icon that corresponds with status of network
 
+; bluetooth status variable
+(defpoll BLUE_STATUS :interval "1s" "$HOME/.config/eww/scripts/bluetooth.sh")
+
 ; execute eww variable
 (defvar eww "/usr/bin/eww -c $HOME/.config/eww")
 
@@ -48,7 +56,7 @@
 ; ---------- the actual widget that holds the sub-widgets that make up the full bar ----------
 (defwidget bar_layout []
     (box :class "full-bar"
-    (workspaces)
+    (left)
     (label :text "${time.hour}:${time.min}")
     ;(label :text "test")
     (right)
@@ -63,7 +71,7 @@
     :hexpand "false"
     (label
       :class "separ"
-      :text ">")
+      :text "<")
   )
 )
 
@@ -91,7 +99,8 @@
         :show_truncated false
         ;;:onclick "$HOME/.config/eww/scripts/pop system"
         :wrap false
-        ;""
+        ;"${battery}%"
+        ;(label :text "test")
         ))))
 
 (defwidget memory []
@@ -173,17 +182,33 @@
         ;:onclick: "networkmanager_dmenu"
         :wrap "false" 
         :limit-width 12
+        :tooltip "${ESSID_WLAN}"
         :style "color: ${COL_WLAN};" WLAN_ICON)
-      (revealer
-        :transition "slideright"
-        :reveal wifi_rev
-        :duration "350ms"
-        (label 
-          :class "module_essid"
-          :text ESSID_WLAN
-          :orientation "h"
-        )
-      )
+      ;(revealer
+        ;:transition "slideright"
+        ;:reveal wifi_rev
+        ;:duration "350ms"
+        ;(label 
+          ;:class "module_essid"
+          ;:text ESSID_WLAN
+          ;:orientation "h"
+        ;)
+      ;)
+    )
+  )
+)
+
+(defwidget bluetooth []
+  (box 
+    :vexpand "false"
+    :hexpand "false"
+    :space-evenly "false"
+    (button
+      :class "module-bluetooth"
+      :onclick "rfkill toggle bluetooth"
+      :onrightclick "blueberry"
+      :tooltip "Bluetooth is ${BLUE_STATUS}"
+      ""
     )
   )
 )
@@ -195,6 +220,7 @@
     :class "right_modules"
     :space-evenly false
     (wifi)
+    (bluetooth)
     (sep)
     (bright)
     (volume)
@@ -207,25 +233,65 @@
   )
 )
 
+(defwidget left []
+  (box :oriention "h"
+    :halign "start"
+    :class "left_modules"
+    :space-evenly false
+    (focus_workspace)
+    ;(label :class "separ" :text "<")
+    (sep)
+    (active_workspaces)
+    ;(label: :class "separ" :text ">")
+  )
+)
+
 
 ;; --- workspaces widget ---
-;; listeners
-(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
-(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+; this is my implementation
+(defwidget focus_workspace []
+  (box 
+    :class "focus_workspace"
+    :space-evenly true
+    (label :text "")
+    (label :text "${focused_workspace}")
+  )
+)
 
-;; actual widget
-(defwidget workspaces []
-  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
-    (box :space-evenly false
-         :class "workspaces"
-      (label :text "${workspaces}${current_workspace}" :visible false)
-      (for workspace in workspaces
-        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-          (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
-            (label :text "${workspace.id}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}" )
-            )
-          )
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+
+(defwidget active_workspaces []
+  (box
+    :space-evenly true 
+    (for workspace in act_workspaces 
+      (eventbox :class "act_workspace" :onclick "hyprctl dispatch workspace ${workspace.key}"
+        (box :class "act_workspace"
+          (label :text "${workspace.key}")
         )
       )
+
     )
   )
+)
+
+; below is pulled from hyprland docs
+;; listeners
+;(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+;(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+
+;; actual widget
+;(defwidget workspaces []
+  ;(eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+    ;(box :space-evenly false
+       ;  :class "workspaces"
+      ;(label :text "${workspaces}${current_workspace}" :visible false)
+      ;(for workspace in workspaces
+       ; (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+        ;  (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
+         ;   (label :text "${workspace.id}" :class "workspace-bx-${workspace.id == current_workspace ? "current" : "test"}" )
+          ;  )
+          ;)
+        ;)
+      ;)
+    ;)
+  ;)

@@ -25,13 +25,35 @@
   margin: 3px 20px 3px 10px;
 }
 
-
+.act_workspace {
+  color: #9FB5D4;
+  margin-left: 4px;
+  margin-right: 4px;
+}
 
 // workspace styling, copy+pasted from hyprland docs
 // will eventually customize myself. 
 .workspace-entry {
+  all: unset;
   padding-left: 4px;
   padding-right: 4px;
+}
+
+.focus_workspace {
+  padding-left: 10px;
+  //padding-right: 10px;
+  color: #9FB5D4;
+}
+
+//.workspace-entry 1 {
+  //color: red;
+  //font-size: 10;
+//}
+
+.workspace-bx-current {
+  color: red;
+  font-size: 20;
+  //padding-left: 4px;
 }
 
 .workspaces {
@@ -43,6 +65,7 @@
 // ball inside the ring. 
 .baticon {
     margin: 10px;
+    font-size: 2;
 }
 
 // Styles the battery module, so the ring that shows the 
@@ -68,7 +91,13 @@
   font-size: 22;
   color: #a1bdce;
   border-radius: 100%;
-  //margin: 0px 0px 0px 0px;
+  margin: 0px 15px 0px 0px;
+}
+
+.module-bluetooth {
+  font-size: 18;
+  color: #a1bdce;
+  margin: 0px 10px 0px 0px;;
 }
 
 .module_essid {
