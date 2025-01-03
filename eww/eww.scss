@@ -4,7 +4,7 @@
 // sytles the entire bar
 .full-bar {
     // orig values I was playing with
-    color: rgba(#949494, 1);
+    //color: rgba(#949494, 1);
     background-color: rgba(#0f0f17, .80);
     border-radius: 16px;
     border-style: solid;
@@ -76,7 +76,7 @@
 // status of the battery, I believe it falls back on the background color
 // of the overall bar. 
 .battery_module {
-  color: #9FB5D4;
+  //color: #9FB5D4;
   border-radius: 16px;
   margin: 3px 10px 3px 5px;
 }
@@ -92,8 +92,10 @@
 }
 
 .module-wif {
+  //all: unset;
   font-size: 22;
-  color: #a1bdce;
+  //color: #a1bdce;
+  //color: #FF0000;
   border-radius: 100%;
   margin: 0px 15px 0px 0px;
 }

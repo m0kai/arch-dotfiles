@@ -1,0 +1,24 @@
+#!/bin/bash
+
+status=$(cat /sys/class/power_supply/BAT1/status)
+bat_level=$(cat /sys/class/power_supply/BAT1/capacity)
+
+# not on charger
+if [ $status == "Discharging" ]; then
+  # medium power
+  if [ $bat_level -lt 50 -a $bat_level -gt 30 ]; then
+    color="#E4C9AF"
+
+  # low power
+  elif [ $bat_level -lt 30 ]; then
+    color="#ff0800"
+  else
+    # normal power
+    color="#a1bdce"
+  fi
+else
+  # on charger
+  color="#aad688"
+fi
+
+echo $color

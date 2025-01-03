@@ -6,7 +6,7 @@
 
 ;; time variable
 (defpoll time :interval "1s"
-    `date +'{"hour":"%H","min":"%M"}'`)
+    `date +'{"hour":"%H","min":"%M","sec":"%S","day_str":"%a","day_num":"%d","month":"%b"}'`)
 
 ;; network connectivity variable
 (defpoll net :interval "100s"
@@ -16,6 +16,8 @@
 
 ; Battery levels variable, value is pulled by script
 (defpoll battery :interval "15s" "$HOME/.config/eww/scripts/battery --bat")
+
+(defpoll battery_color :interval "1s" "$HOME/.config/eww/scripts/battery_color")
 
 ; How much memory is in use variable 
 (defpoll memory :interval "15s" "scripts/memory")
@@ -31,9 +33,9 @@
 
 ; wifi Variables
 (defvar wifi_rev false) ; controls slider
-(defpoll COL_WLAN :interval "1m" "$HOME/.config/eww/scripts/wifi --COL") ; Get status of Wifi, connected or disconnected
-(defpoll ESSID_WLAN :interval "1m" "$HOME/.config/eww/scripts/wifi --ESSID") ; Get Wifi network name
-(defpoll WLAN_ICON :interval "1m" "$HOME/.config/eww/scripts/wifi --ICON") ; Get icon that corresponds with status of network
+(defpoll COL_WLAN :interval "1s" "$HOME/.config/eww/scripts/wifi --COL") ; Get status of Wifi, connected or disconnected
+(defpoll ESSID_WLAN :interval "1s" "$HOME/.config/eww/scripts/wifi --ESSID") ; Get Wifi network name
+(defpoll WLAN_ICON :interval "1s" "$HOME/.config/eww/scripts/wifi --ICON") ; Get icon that corresponds with status of network
 
 ; bluetooth status variable
 (defpoll BLUE_STATUS :interval "1s" "$HOME/.config/eww/scripts/bluetooth.sh")
@@ -57,7 +59,7 @@
 (defwidget bar_layout []
     (box :class "full-bar"
     (left)
-    (label :class "module-time" :text "${time.hour}:${time.min}")
+    (label :class "module-time" :text "${time.day_str} ${time.month} ${time.day_num}  ${time.hour}:${time.min}:${time.sec}")
     ;(label :text "test")
     (right)
     )
@@ -89,9 +91,10 @@
 ; ---------- Widgets on the right third of the bar ----------
 ;; The battery widget
 (defwidget battery []
-  (box :class "battery_module" :vexpand "false" :hexpand "false"
+  (box :class "battery_module" :style "color: ${battery_color};" :vexpand "false" :hexpand "false"
     (circular-progress :value battery
       :thickness 4
+      ;:style "color: ${battery_color};"
       (button
         :class "baticon"
         :limit-width 2
