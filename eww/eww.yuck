@@ -59,7 +59,7 @@
 (defwidget bar_layout []
     (box :class "full-bar"
     (left)
-    (label :class "module-time" :text "${time.day_str} ${time.month} ${time.day_num}  ${time.hour}:${time.min}:${time.sec}")
+    (label :class "module-time" :text "${time.day_str} ${time.month} ${time.day_num} ${time.hour}:${time.min}:${time.sec}")
     ;(label :text "test")
     (right)
     )
