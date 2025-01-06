@@ -158,3 +158,38 @@ tooltip.background {
 tooltip label {
     margin: 6px;
 }
+
+// System (battery and RAM) widget (pop out windows) stuff
+.sys_win {
+    background-color: #0f0f17;
+}
+
+.sys_bat_box {
+	border-radius: 16px;
+  margin: 15px 10px 10px 20px;
+}
+
+.sys_bat {
+  color: #afbea2;
+  background-color: #38384d;
+  border-radius: 10px;
+}
+
+.sys_icon_bat {
+  color: #afbea2;
+  font-size: 30;
+  margin: 30px;
+}
+
+.sys_text_bat {
+  color: #afbea2;
+  font-size: 21;
+  font-weight: bold;
+  margin: 14px 0px 0px 25px;
+}
+
+.sys_text_bat_sub {
+  font-size: 16;
+  color: #bbc5d7;
+  margin: 5px 0px 0px 25px;
+}
