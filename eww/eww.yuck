@@ -104,30 +104,32 @@
 (defwidget battery []
   (box :class "battery_module" :style "color: ${battery_color};" :vexpand "false" :hexpand "false"
     (circular-progress :value battery
-      :thickness 4
+      :thickness 3
       ;:style "color: ${battery_color};"
       (button
         :class "baticon"
         :limit-width 2
         :tooltip "battery is on ${battery}%"
         :show_truncated false
-        ;;:onclick "$HOME/.config/eww/scripts/pop system"
+        :onclick "$HOME/.config/eww/scripts/pop system"
         :wrap false
+        ""
         ;"${battery}%"
-        ;(label :text "test")
+        ;(label :text "${battery}%")
         ))))
 
 (defwidget memory []
   (box :class "mem_module" :vexpand "false" :hexpand: "false"
   (circular-progress :value memory
-    :thickness 4
+    :thickness 3
     (button
       :class "memicon"
       :limit-width 2
       :tooltip "using ${memory}% RAM"
-      ;:onclick "$HOME/.config/eww /scripts/pop system"
+      ;:onclick "$HOME/.config/eww/scripts/pop system"
       :show_truncated false
       :wrap false
+      ""
      ))))
 
 (defwidget volume []
