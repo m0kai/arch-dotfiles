@@ -1,3 +1,32 @@
 #!/usr/bin/bash
 
+system() {
+  SYS_LOCK_FILE="$HOME/.cache/eww-sys.lock"
 
+  if [ ! -f "$SYS_LOCK_FILE" ]; then
+    touch $SYS_LOCK_FILE
+    eww open system
+  else
+    eww close system
+    rm $SYS_LOCK_FILE
+  fi
+}
+
+ip_menu() {
+  IP_LOCK_FILE="$HOME/.cache/eww-ip.lock"
+
+  if [[ ! -f "$IP_LOCK_FILE" ]]; then
+    touch $IP_LOCK_FILE
+    eww open ip_menu
+  else
+    eww close ip_menu
+    rm $IP_LOCK_FILE
+  fi
+}
+
+if [ "$1" = "system" ]; then
+  system
+
+elif [ "$1" = "ip_menu" ]; then
+  ip_menu
+fi

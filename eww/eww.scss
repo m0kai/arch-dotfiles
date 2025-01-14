@@ -101,6 +101,11 @@
   margin: 0px 15px 0px 0px;
 }
 
+//.ip_addr {
+  //color: #9FB5D4;
+  //margin-right: 10px;
+//}
+
 .module-bluetooth {
   font-size: 18;
   color: #a1bdce;
@@ -193,4 +198,14 @@ tooltip label {
   font-size: 16;
   color: #bbc5d7;
   margin: 5px 0px 0px 25px;
+}
+
+.ip_win {
+  background-color: #0f0f17;
+  border-radius: 10px;
+}
+
+.ip_wifi_label {
+  margin: 10px 0px 0px 10px;
+  font-size: 11;
 }

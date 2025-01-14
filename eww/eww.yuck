@@ -16,7 +16,7 @@
 
 ; Battery levels variable, value is pulled by script
 (defpoll battery :interval "15s" "$HOME/.config/eww/scripts/battery --bat")
-(defpoll battery_status :interval "1s" "$HOME/.config/eww/scripts/battry --bat-st")
+(defpoll battery_status :interval "1s" "$HOME/.config/eww/scripts/battery --bat-st")
 (defpoll battery_color :interval "1s" "$HOME/.config/eww/scripts/battery_color")
 
 ; How much memory is in use variable 
@@ -36,6 +36,7 @@
 (defpoll COL_WLAN :interval "1s" "$HOME/.config/eww/scripts/wifi --COL") ; Get status of Wifi, connected or disconnected
 (defpoll ESSID_WLAN :interval "1s" "$HOME/.config/eww/scripts/wifi --ESSID") ; Get Wifi network name
 (defpoll WLAN_ICON :interval "1s" "$HOME/.config/eww/scripts/wifi --ICON") ; Get icon that corresponds with status of network
+(defpoll IP_ADDR :interval "1s" "$HOME/.config/eww/scripts/ip_address")
 
 ; bluetooth status variable
 (defpoll BLUE_STATUS :interval "1s" "$HOME/.config/eww/scripts/bluetooth.sh")
@@ -65,6 +66,18 @@
                       :height "10%")
   (system)
   )
+
+(defwindow ip_menu
+  :monitor 0
+  :geometry (geometry
+              :x "3%"
+              :y "0.1%"
+              :anchor "top right"
+              :width "20%"
+              :height "10%"
+              )
+  (ip_menu)
+)
 
 ; ---------- the actual widget that holds the sub-widgets that make up the full bar ----------
 (defwidget bar_layout []
@@ -100,6 +113,18 @@
 )
 
 ; ---------- Widgets on the right third of the bar ----------
+(defwidget ip_addr []
+  (box
+    :vexpand "false"
+    :hexpand "false"
+    (label
+      :class "ip_addr"
+      :text "${IP_ADDR}"
+      )
+  )
+)
+
+
 ;; The battery widget
 (defwidget battery []
   (box :class "battery_module" :style "color: ${battery_color};" :vexpand "false" :hexpand "false"
@@ -195,18 +220,19 @@
       :space-evenly: "false"
       (button
         :class "module-wif" 
-        ;:onclick: "networkmanager_dmenu"
+        :onclick "$HOME/.config/eww/scripts/pop ip_menu"
         :wrap "false" 
         :limit-width 12
         :tooltip "${ESSID_WLAN}"
         :style "color: ${COL_WLAN};" WLAN_ICON)
+        
       ;(revealer
         ;:transition "slideright"
         ;:reveal wifi_rev
         ;:duration "350ms"
         ;(label 
-          ;:class "module_essid"
-          ;:text ESSID_WLAN
+          ;:class "ip_addr"
+          ;:text IP_ADDR
           ;:orientation "h"
         ;)
       ;)
@@ -235,8 +261,11 @@
     :halign "end"
     :class "right_modules"
     :space-evenly false
+    ;(ip_addr)
+    ;(sep)
     (wifi)
     (bluetooth)
+    ;(wifi)
     (sep)
     (bright)
     (volume)
@@ -299,7 +328,7 @@
     :vexpand "false"
     :spacing 0
     (box 
-      :class "sys_bat_box" 
+      :class "sys   (wifi_bat_box" 
       :orientation "h"
       :space-evenly "false"
       (circular-progress
@@ -344,6 +373,24 @@
           :wrap false
         )
       )
+    )
+  )
+)
+
+(defwidget ip_menu [] 
+  (box
+    :class "ip_win"
+    :orientation "v"
+    :space-evenly "false"
+    :hexpand "false"
+    :vexpand "false"
+    (label
+      :text "${ESSID_WLAN}: ${IP_ADDR}"
+      :halign "start"
+      :class "ip_wifi_label"
+      ;:limit-width 22 
+      :show_truncated false
+      :wrap false
     )
   )
 )
