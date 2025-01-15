@@ -1,14 +1,24 @@
 #!/bin/bash
 
-get_ip_address() {
-  if [[ -n "$(ifconfig tun0 2>/dev/null)" ]]; then
-    export IP=$(ifconfig tun0 | awk '/inet / {print $2}')
-  elif [[ -n "$(ifconfig wlan0 2>/dev/null)" ]]; then
-    export IP=$(ifconfig wlan0 | awk '/inet / {print $2}')
-  else
-    export IP="No Network"
-  fi
-}
+#get_ip_address() {
+#if [[ "" ]]; then
+#export IP=$(ifconfig tun0 | awk '/inet / {print $2}')
 
-get_ip_address
+#elif [[ -n "$(ifconfig wlan0 2>/dev/null)" ]]; then
+#export IP=$(ifconfig wlan0 | awk '/inet / {print $2}')
+
+#else
+#export IP="No Network"
+
+#fi
+#}
+
+if [ "$1" = "wlan0" ]; then
+  export IP=$(ifconfig wlan0 | awk '/inet / {print $2}')
+
+elif [ "$1" = "tun0" ]; then
+  export IP=$(ifconfig tun0 | awk '/inet / {print $2}')
+fi
+
+#get_ip_address
 echo $IP

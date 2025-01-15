@@ -36,7 +36,8 @@
 (defpoll COL_WLAN :interval "1s" "$HOME/.config/eww/scripts/wifi --COL") ; Get status of Wifi, connected or disconnected
 (defpoll ESSID_WLAN :interval "1s" "$HOME/.config/eww/scripts/wifi --ESSID") ; Get Wifi network name
 (defpoll WLAN_ICON :interval "1s" "$HOME/.config/eww/scripts/wifi --ICON") ; Get icon that corresponds with status of network
-(defpoll IP_ADDR :interval "1s" "$HOME/.config/eww/scripts/ip_address")
+(defpoll IP_ADDR :interval "1s" "$HOME/.config/eww/scripts/ip_address wlan0")
+(defpoll TUN_IP_ADDR :interval "1s" "$HOME/.config/eww/scripts/ip_address tun0")
 
 ; bluetooth status variable
 (defpoll BLUE_STATUS :interval "1s" "$HOME/.config/eww/scripts/bluetooth.sh")
@@ -389,6 +390,13 @@
       :halign "start"
       :class "ip_wifi_label"
       ;:limit-width 22 
+      :show_truncated false
+      :wrap false
+    )
+    (label
+      :text "OpenVPN: ${TUN_IP_ADDR}"
+      :halign "start"
+      :class "ip_wifi_label"
       :show_truncated false
       :wrap false
     )
