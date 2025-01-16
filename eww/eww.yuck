@@ -80,6 +80,18 @@
   (ip_menu)
 )
 
+(defwindow power_menu
+  :monitor 0 
+  :geometry (geometry
+              :x "0.7%"
+              :y "0.1%"
+              :anchor "top right"
+              :width "20%"
+              :height "10%"
+  )
+  (power_menu)
+)
+
 ; ---------- the actual widget that holds the sub-widgets that make up the full bar ----------
 (defwidget bar_layout []
     (box :class "full-bar"
@@ -106,9 +118,9 @@
   (box
     :vexpand "false"
     :hexpand "false"
-    (label 
+    (button 
       :class "start_icon"
-      :text ""
+      ""
     )
   )
 )
@@ -400,6 +412,15 @@
       :show_truncated false
       :wrap false
     )
+  )
+)
+
+(defwidget power_menu []
+  (box
+    :orientation "h"
+    :class "power_win"
+    (label :text "" :class "power_icon")
+    (label :text "test")
   )
 )
 
