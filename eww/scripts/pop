@@ -24,9 +24,23 @@ ip_menu() {
   fi
 }
 
+power_menu() {
+  POWER_LOCK_FILE="$HOME/.cache/eww-poer.lock"
+
+  if [ ! -f "$POWER_LOCK_FILE" ]; then
+    touch $POWER_LOCK_FILE
+    eww open power_menu
+  else
+    eww close power_menu
+    rm $POWER_LOCK_FILE
+  fi
+}
+
 if [ "$1" = "system" ]; then
   system
 
 elif [ "$1" = "ip_menu" ]; then
   ip_menu
+elif [ "$1" = "power_menu" ]; then
+  power_menu
 fi

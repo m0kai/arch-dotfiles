@@ -120,6 +120,7 @@
     :hexpand "false"
     (button 
       :class "start_icon"
+      :onclick "$HOME/.config/eww/scripts/pop power_menu"
       ""
     )
   )
@@ -419,8 +420,13 @@
   (box
     :orientation "h"
     :class "power_win"
-    (label :text "" :class "power_icon")
-    (label :text "test")
+    :space-evenly "false"
+    ;(label :text "" :class "power_icon")
+    (button
+      :class "power_icon"
+      :onclick "poweroff"
+      "")
+    (label :text "Leave Dungeon?" :class "power_txt")
   )
 )
 
