@@ -200,6 +200,15 @@ tooltip label {
   margin: 5px 0px 0px 25px;
 }
 
+.slider_win {
+  background-color: rgba(#0f0f17, .80);
+  border-radius: 10px;
+}
+
+.vol_slider {
+  margin: 10px 10px 10px 10px;
+}
+
 .ip_win {
   //background-color: #0f0f17;
   background-color: rgba(#0f0f17, .80);
@@ -207,7 +216,7 @@ tooltip label {
 }
 
 .ip_wifi_label {
-  margin: 10px 0px 0px 10px;
+  margin: 10px 10px 10px 10px;
   font-size: 11;
   color: #a1bdce;
 }
@@ -226,4 +235,15 @@ tooltip label {
 .power_txt {
   margin-left: 20px;
   color: #ca3433;
+}
+
+.lock_icon {
+  font-size: 30;
+  margin-left: 25px;
+  color: #a1bdce;
+}
+
+.lock_txt {
+  margin-left: 25px;
+  color: #a1bdce;
 }
