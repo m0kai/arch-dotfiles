@@ -36,6 +36,18 @@ power_menu() {
   fi
 }
 
+slider_menu() {
+  SLIDER_LOCK_FILE="$HOME/.cache/eww-slider.lock"
+
+  if [ ! -f "$SLIDER_LOCK_FILE" ]; then
+    touch $SLIDER_LOCK_FILE
+    eww open slider_menu
+  else
+    eww close slider_menu
+    rm $SLIDER_LOCK_FILE
+  fi
+}
+
 if [ "$1" = "system" ]; then
   system
 
@@ -43,4 +55,6 @@ elif [ "$1" = "ip_menu" ]; then
   ip_menu
 elif [ "$1" = "power_menu" ]; then
   power_menu
+elif [ "$1" = "slider_menu" ]; then
+  slider_menu
 fi

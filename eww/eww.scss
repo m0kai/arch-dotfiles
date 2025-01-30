@@ -131,13 +131,15 @@
 
 .bright_icon {
   font-size: 22;
-  color: #E4C9AF;
+  //color: #E4C9AF;
+  color: #a1bdce;
   margin: 0px 10px 0px 10px;
 }
 
 .brightbar trough highlight {
   background-image: linear-gradient(to right, #e4c9af 30%, #f2cdcd 50%, #e0b089 100% *50);
   border-radius: 10px;
+  //margin: 0px;
 }
 
 scale trough {
@@ -207,6 +209,15 @@ tooltip label {
 
 .vol_slider {
   margin: 10px 10px 10px 10px;
+}
+
+.br_slider {
+  margin: 10px 10px 10px 10px;
+}
+
+.bright_menu_icon {
+  font-size: 20;
+  margin: 0px 10px 0px 0px;
 }
 
 .ip_win {

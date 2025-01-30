@@ -87,7 +87,7 @@
               :y "0.1%"
               :anchor "top right"
               :width "20%"
-              :height "25%"
+              :height "10%"
               )
   (slider_menu)
 )
@@ -157,7 +157,7 @@
     (circular-progress :value battery
       :thickness 3
       ;:style "color: ${battery_color};"
-      (button
+      (button 
         :class "baticon"
         :limit-width 2
         :tooltip "battery is on ${battery}%"
@@ -184,57 +184,80 @@
      ))))
 
 (defwidget volume []
-  (eventbox :onhover "${eww} update vol_reveal=true"
-    :onhoverlost "${eww} update vol_reveal=false"
-    (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "3"
-      (button 
-        ;:onclick "scripts/pop audio" 
-        :class "volume_icon" 
-        "")
-      (revealer :transition "slideleft"
-        :reveal vol_reveal
-        :duration "350ms"
-        (scale :class "volbar"
-          :value volume_percent
-          :orientation "h"
-          :tooltip "${volume_percent}%"
-          :max 100
-          :min 0
-          :onchange "amixer -D pulse sset Master {}%")
-        )
+  (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "3"
+    (button 
+      :onclick "scripts/pop slider_menu" 
+      :class "volume_icon" 
+      "")
+  )
+)
+
+(defwidget bright []
+  (box 
+    :class "module-2" 
+    :space-evenly "false"
+    :orientation "h"
+    :spacing "3"
+    (button
+      :onclick "scripts/pop slider_menu"
+      :class "bright_icon"
+      ""
       )
     )
   )
 
-(defwidget bright []
-  (eventbox 
-    :onhover "${eww} update br_reveal=true" 
-    :onhoverlost "${eww} update br_reveal=false"
-    (box 
-      :class "module-2" 
-      :space-evenly "false"
-      :orientation "h"
-      :spacing "3"
-      (label 
-        :text ""
-        :class "bright_icon" 
-        :tooltip "brightness")
-      (revealer
-        :transition "slideleft"
-        :reveal br_reveal
-        :duration "350ms"
-        (scale 
-          :class "brightbar"
-          :value brightness_percent
-          :orientation "h"
-          :tooltip "${brightness_percent}%"
-          :max 100
-          :min 0
-          :onchange "brightnessctl -d amdgpu_bl2 s {}%")
-        )
-      )
-    )
-  )
+;(defwidget volume []
+  ;(eventbox :onhover "${eww} update vol_reveal=true"
+    ;:onhoverlost "${eww} update vol_reveal=false"
+    ;(box :class "module-2" :space-evenly "false" :orientation "h" :spacing "3"
+      ;(button 
+        ;:onclick "scripts/pop slider_menu" 
+        ;:class "volume_icon" 
+        ;"")
+      ;(revealer :transition "slideleft"
+        ;:reveal vol_reveal
+        ;:duration "350ms"
+        ;(scale :class "volbar"
+          ;:value volume_percent
+          ;:orientation "h"
+          ;:tooltip "${volume_percent}%"
+          ;:max 100
+          ;:min 0
+          ;:onchange "amixer -D pulse sset Master {}%")
+        ;)
+      ;)
+    ;)
+  ;)
+
+;(defwidget bright []
+  ;(eventbox 
+    ;:onhover "${eww} update br_reveal=true" 
+    ;:onhoverlost "${eww} update br_reveal=false"
+    ;(box 
+      ;:class "module-2" 
+      ;:space-evenly "false"
+      ;:orientation "h"
+      ;:spacing "3"
+      ;(label 
+        ;:text ""
+        ;:class "bright_icon" 
+        ;:tooltip "brightness")
+      ;(revealer
+        ;:transition "slideleft"
+        ;:reveal br_reveal
+        ;:duration "350ms"
+        ;(scale 
+          ;:class "brightbar"
+          ;:value brightness_percent
+          ;:orientation "h"
+          ;:tooltip "${brightness_percent}%"
+          ;:max 100
+          ;:min 0
+          ;:onchange "brightnessctl -d amdgpu_bl2 s {}%")
+        ;)
+      ;)
+    ;)
+  ;)
 
 (defwidget wifi []
   (eventbox
@@ -448,6 +471,13 @@
       )
     )
       (box
+        :class "br_slider"
+        ;:space-evenly "false"
+        ;:orientation "h"
+        ;(label 
+          ;:text ""
+          ;:class "bright_menu_icon"
+          ;)
         (scale 
           :class "brightbar"
           :value brightness_percent
