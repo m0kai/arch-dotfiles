@@ -459,6 +459,11 @@
     ;(label :text "test")
     (box
       :class "vol_slider"
+      :space-evenly "false"
+      (label
+        :text ""
+        :class "vol_menu_icon"
+       )
       (scale 
         :class "volbar"
         :value volume_percent
@@ -472,12 +477,12 @@
     )
       (box
         :class "br_slider"
-        ;:space-evenly "false"
+        :space-evenly "false"
         ;:orientation "h"
-        ;(label 
-          ;:text ""
-          ;:class "bright_menu_icon"
-          ;)
+        (label 
+          :text ""
+          :class "bright_menu_icon"
+          )
         (scale 
           :class "brightbar"
           :value brightness_percent
