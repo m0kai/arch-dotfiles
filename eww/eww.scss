@@ -267,3 +267,16 @@ tooltip label {
   margin-left: 25px;
   color: #a1bdce;
 }
+
+.audio_win {
+  background-color: rgba(#0f0f17, .80);
+  border-radius: 10px;
+}
+
+.album_art {
+	background-size: 240px;
+	min-height: 240px;
+	min-width: 240px;
+	margin: 20px;
+	border-radius: 14px;
+}

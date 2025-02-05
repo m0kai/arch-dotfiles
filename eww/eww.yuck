@@ -42,6 +42,11 @@
 ; bluetooth status variable
 (defpoll BLUE_STATUS :interval "1s" "$HOME/.config/eww/scripts/bluetooth.sh")
 
+(defpoll ALBUM_COVER :interval "1s" "$HOME/.config/eww/scripts/audio_metadata --album-artwork")
+(defpoll SONG_TITLE :interval "1s" "$HOME/.config/eww/scripts/audio_metadata --track_name")
+(defpoll ALBUM_TITLE :interval "1s" "$HOME/.config/eww/scripts/audio_metadata --album_name")
+(defpoll ARTIST_NAME :interval "1s" "$HOME/.config/eww/scripts/audio_metadata --artist_name")
+
 ; execute eww variable
 (defvar eww "/usr/bin/eww -c $HOME/.config/eww")
 
@@ -103,6 +108,18 @@
   )
   (power_menu)
 )
+
+(defwindow audio_menu
+  :monitor 0 
+  :geometry (geometry
+              :x "0.7%"
+              :y "0.1%"
+              :anchor "top right"
+              :width "17%"
+              :height "10%"
+              )
+  (audio_menu)
+  )
 
 ; ---------- the actual widget that holds the sub-widgets that make up the full bar ----------
 (defwidget bar_layout []
@@ -512,6 +529,23 @@
     )
   )
 )
+
+(defwidget audio_menu []
+  (box
+    :oriention "h"
+    :class "audio_win"
+    (box
+      :class "album_art"
+      ;(label :text "test")
+      :style "background-image: url('${ALBUM_COVER}');"
+      )
+    (box
+      :oriention "v"
+      (box "${SONG_TITLE}")
+      (box "${ALBUM_TITLE}")
+    )
+    )
+  )
 
 ; below is pulled from hyprland docs
 ;; listeners

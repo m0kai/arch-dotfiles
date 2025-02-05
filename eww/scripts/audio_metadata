@@ -1,0 +1,30 @@
+#!/bin/bash
+
+spotify_album_art() {
+  playerctl --player=spotify metadata mpris:artUrl
+}
+
+spotify_track_title() {
+  playerctl --player=spotify metadata xesam:title
+}
+
+spotify_album_title() {
+  playerctl --player=spotify metadata xesam:album
+}
+
+spotify_artist() {
+  playerctl --player=spotify metadata xesam:artist
+}
+
+if [ "$1" == "--album-artwork" ]; then
+  spotify_album_art
+
+elif [ "$1" == "--track_name" ]; then
+  spotify_track_title
+
+elif [ "$1" == "--album_name" ]; then
+  spotify_album_title
+elif [ "$1" == "--artist_name" ]; then
+  spotify_artist
+fi
+#playerctl --player=spotify metadata mpris:artUrl
